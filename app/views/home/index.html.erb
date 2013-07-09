@@ -1,4 +1,15 @@
 <h3>Home</h3>
-<% @users.each do |user| %>
-  <p>User: <%=link_to user.name, user %></p>
+<% if !user_signed_in? %>
+	<h2> Informative Stuff </h2>
+<% else %>
+	<% if current_user.has_role? :admin %>
+		<% @users.each do |user| %>
+		  <h2>Admin</h2>
+		  <p>User: <%=link_to user.name, user %></p>
+	  	<% end %>
+    <% else %>
+      <h2>User</h2>
+	  <p>User: <%=link_to current_user.name, current_user %></p>
+	<% end %>
 <% end %>
+
