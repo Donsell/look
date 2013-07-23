@@ -7,7 +7,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @current_user = current_user
     @user = User.find(params[:id])
+#    @telescope = @user.telescopes.build
   end
   
   def update

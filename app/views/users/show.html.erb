@@ -1,3 +1,39 @@
 <h3>User</h3>
 <p>User: <%= @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+
+<div class="span8">
+	<table>
+	<% if @user.telescopes.any? %>
+		<tr>
+			<th>Manufacturer</th>
+			<th>Model</th>
+			<th>Focal Length</th>
+			<th>Aperture</th>
+			<th>Focal Ratio</th>								
+		</tr>
+		<% @user.telescopes.each do |telescope| %>
+			<tr>
+				<th><%= telescope.manufacturer %></th>
+				<th><%= telescope.name %></th>
+				<th><%= telescope.focal_length %>mm</th>
+				<th><%= telescope.aperature %>mm</th>
+				<th><%= telescope.focal_ratio %></th>
+			</tr>
+		<% end %>	
+	<% end =%>
+	</table>
+		<% if @current_user.id == @user.id %>
+			<%    @telescope = @user.telescopes.build %>
+
+			<%= form_for(@telescope) do |f| %>
+		  		<div class="field">
+		    		<%= f.text_field :manufacturer, placeholder: "Telescope Manufacurer..." %>
+		    		<%= f.text_field :name, placeholder: "Telescope Model...." %>
+		    		<%= f.number_field :focal_length, placeholder: "Focal Length mm" %>
+		    		<%= f.number_field :aperature, placeholder: "Aperture mm" %>
+		  		</div>
+		  		<%= f.submit "Add Telescope", class: "btn btn-large btn-primary" %>
+	  		<% end %>
+  		<% end -%>
+</div>

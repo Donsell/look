@@ -21,4 +21,9 @@
       :number_of_stars, 
       :brightest_star_mag,
       :ngc_description 
+
+  def dec
+    #printf("%02d", self.declination.to_i) + "\xC2\xB0" + printf("%02d", (((self.declination % 1) * 100) + 1).to_i) + "'00\""
+    sprintf("%02d\xC2\xB0%02d'00\"", self.declination.to_i, (((self.declination % 1) * 100) + 1).to_i)
+  end
 end

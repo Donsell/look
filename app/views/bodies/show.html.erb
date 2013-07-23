@@ -1,0 +1,39 @@
+<h3>
+	<% @body.catalogs.each do |catalog| %>
+		<%= catalog.designation %><br>
+	<% end %> 
+</h3>
+<h2>
+<% if @body.body_type_id == 48 %>
+	<%= sprintf("%s in %s", pluralize(@body.number_of_stars, "Star"), @body.constellation.constellation) %><br>
+<% elsif @body.class_id.nil? || @body.class_id == "Elliptical " || @body.class_id == ' ' || @body.body_type_id == 34 %>
+	<%= sprintf("%s %s in %s", @body.class_id, @body.body_type.description, @body.constellation.constellation) %><br>
+<% else %>
+	<%= sprintf("Class %s %s in %s", @body.class_id, @body.body_type.description, @body.constellation.constellation) %><br>
+<% end %>
+Right Ascension: <%= @body.right_ascension.strftime("%Hh %Mm %Ss") %><br>
+Declination: <%= @body.dec %><br>
+<% unless @body.magnitude > 40.0 %>
+	Magnitude: <%= @body.magnitude %><br>
+<% end %>
+Can be found on:<br>
+Uranometria Page <%= @body.uranometria %><br>
+Sky Atlas 2000 Page <%= @body.sky_atlas_2000 %><br>
+Pocket Sky Atlas Page <%= @body.pocket_sky_atlas %><br>
+<% unless @body.size_max.nil?  %>
+	<%= sprintf("Size: %2.2f", @body.size_max) %>
+	<% unless  @body.size_min.nil?  %>
+		<%=sprintf("x%2.2f", @body.size_min) %>
+	<% end %>
+	Arc Seconds<br>
+<% end %>
+<% unless @body.body_type_id == 48 %>
+	<% unless @body.number_of_stars.nil? %>
+		Number of Stars: <%= @body.number_of_stars %><br>
+	<% end %>
+<% end %>
+<% unless  @body.brightest_star_mag.nil? %>
+	<%= sprintf("Magnitude of %s star: %2.2f", @body.body_type_id == 41? "central" : "brightest", @body.brightest_star_mag) %>
+<% end %>
+
+</h2>

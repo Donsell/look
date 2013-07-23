@@ -3,4 +3,8 @@ class Catalog < ActiveRecord::Base
   attr_accessible :catalog,
         :catalog_num,
         :body_id
+
+    def designation
+    	"#{self.catalog} #{self.catalog_num}"
+	end
 end

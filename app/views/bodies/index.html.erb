@@ -1,0 +1,44 @@
+<h3>Bodies</h3>
+<div class="span8">
+
+<%= will_paginate %>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>Designations</th>
+      <th>Constellation</th>
+      <th>Type</th>
+      <th>RA</th>
+      <th>DC</th>
+      <th>Magnitude</th>
+      <th>SA 2000</th>
+      <th>PSA</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @bodies.each do |body| %>
+    <tr>
+      <td>
+        <% body.catalogs.each do |catalog| %>
+          <%= link_to catalog.designation, :controller => "bodies", :action => "show", :id => body.id %><br>
+        <% end %>
+      </td>
+      <td><%= body.constellation.constellation %></td>
+      <% if body.body_type_id == 48 %>
+        <td><%= sprintf("%s in %s", pluralize(body.number_of_stars, "Star"), body.constellation.constellation) %></td>
+      <% else %>
+        <td><%= body.body_type.description %></td>
+      <% end %>
+      <td><%= body.right_ascension.strftime("%Hh %Mm %Ss") %></td>
+      <td><%= body.dec %></td>
+      <td><%= body.magnitude %></tb>
+      <td><%= body.sky_atlas_2000 %></td>
+      <td><%= body.pocket_sky_atlas %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate %>
+</div>

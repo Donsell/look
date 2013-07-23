@@ -4,5 +4,6 @@ Look::Application.routes.draw do
   end
   root :to => "home#index"
   devise_for :users
-  resources :users
+  resources :users, :bodies
+  resources :telescopes, only: [:create, :destroy] 
 end

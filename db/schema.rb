@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710204224) do
+ActiveRecord::Schema.define(:version => 20130722150256) do
 
   create_table "bodies", :force => true do |t|
     t.text     "body_id"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(:version => 20130710204224) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "telescopes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "manufacturer"
+    t.integer  "focal_length"
+    t.integer  "aperature"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

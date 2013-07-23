@@ -1,15 +1,20 @@
-<h3>Home</h3>
-<% if !user_signed_in? %>
-	<h2> Informative Stuff </h2>
-<% else %>
-	<% if current_user.has_role? :admin %>
-		<% @users.each do |user| %>
-		  <h2>Admin</h2>
-		  <p>User: <%=link_to user.name, user %></p>
-	  	<% end %>
-    <% else %>
-      <h2>User</h2>
-	  <p>User: <%=link_to current_user.name, current_user %></p>
+<div class="hero-unit">
+	<h3>Home</h3>
+	<% if !user_signed_in? %>
+		<h2> Informative Stuff </h2>
+	<% else %>
+		<% if current_user.has_role? :admin %>
+			<h2>Users</h2>
+			<% @users.each do |user| %>
+				<p>
+			 	  <%=link_to user.name, user %>
+			 	  <% if user.has_role? :admin %> 
+			 		* </p>
+			 	  <% end %>
+		  	<% end %>
+	    <% else %>
+	      <h2>User</h2>
+		  <p><%=link_to current_user.name, current_user %></p>
+		<% end %>
 	<% end %>
-<% end %>
-
+</div>
